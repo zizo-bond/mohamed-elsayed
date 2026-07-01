@@ -66,6 +66,7 @@ import aslCover from "./assets/images/asl.png";
 import farCover from "./assets/images/far.png";
 import mizanCover from "./assets/images/ميزان.png";
 import rialtoCover from "./assets/images/ريالتو.png";
+import habiscover from "./assets/images/حبيس.png";
 
 // Payment constants
 const WALLET_NUMBER = "01066059542";
@@ -223,6 +224,9 @@ export default function App() {
           }
           if (bookData.title === "سينما ريالتو") {
             bookData.image = rialtoCover;
+          }
+          if (bookData.title === "حبيس الزمن") {
+            bookData.image = habiscover;
           }
           return {
             id: doc.id,
