@@ -92,6 +92,24 @@ export async function seedBooksIfEmpty() {
       return;
     }
     
+    // Check if "حبيس الزمن" already exists in the snapshot, if not, add it
+    const hasHabis = snapshot.docs.some(doc => doc.data().title === "حبيس الزمن");
+    if (!snapshot.empty && !hasHabis) {
+      try {
+        await addDoc(booksCol, {
+          title: "حبيس الزمن",
+          type: "قصة قصيرة",
+          year: "2022",
+          price: 100,
+          description: "قصة قصيرة فلسفية حائزة على جائزة iRead لأفضل قصة قصيرة، تأخذ القارئ في رحلة زمنية مثيرة تستكشف أبعاد الذاكرة والكينونة الإنسانية.",
+          image: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&q=80&w=400"
+        });
+        console.log("Firestore successfully migrated: added 'حبيس الزمن'");
+      } catch (error) {
+        handleFirestoreError(error, OperationType.WRITE, "books");
+      }
+    }
+
     if (snapshot.empty) {
       const initialBooks: Omit<Book, "id">[] = [
         {
@@ -146,6 +164,14 @@ export async function seedBooksIfEmpty() {
           price: 100,
           description: "قصص غريبة سريالية تحلل النفس البشرية بين الواقع والخيال، متسائلة عن ماهية الكينونة والوعي في عصر منقسم وغامض.",
           image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&q=80&w=400"
+        },
+        {
+          title: "حبيس الزمن",
+          type: "قصة قصيرة",
+          year: "2022",
+          price: 100,
+          description: "قصة قصيرة فلسفية حائزة على جائزة iRead لأفضل قصة قصيرة، تأخذ القارئ في رحلة زمنية مثيرة تستكشف أبعاد الذاكرة والكينونة الإنسانية.",
+          image: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&q=80&w=400"
         }
       ];
  
