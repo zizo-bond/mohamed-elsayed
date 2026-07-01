@@ -66,7 +66,7 @@ import aslCover from "./assets/images/asl.png";
 import farCover from "./assets/images/far.png";
 import mizanCover from "./assets/images/ميزان.png";
 import rialtoCover from "./assets/images/ريالتو.png";
-import habiscover from "./assets/images/حبيس.png";
+import habiscover from "./assets/images/habis.png";
 
 // Payment constants
 const WALLET_NUMBER = "01066059542";
