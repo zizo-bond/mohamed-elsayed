@@ -1180,6 +1180,8 @@ export default function App() {
                       <img
                         src={book.image}
                         alt={book.title}
+                        loading="lazy"
+                        decoding="async"
                         className="max-w-full max-h-full object-contain rounded shadow-lg transition-transform duration-500 group-hover:scale-105"
                       />
                       {/* Tag & Year */}
@@ -1631,6 +1633,8 @@ export default function App() {
                           <img
                             src={item.book.image}
                             alt={item.book.title}
+                            loading="lazy"
+                            decoding="async"
                             className="w-16 h-20 object-cover rounded-md bg-dark-card flex-shrink-0"
                           />
                           <div className="flex-1 flex flex-col justify-between">
