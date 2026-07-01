@@ -4,16 +4,16 @@
 
   <!-- الصفحة الرئيسية -->
   <url>
-    <loc>https://mohamed-elsayed.vercel.app/</loc>
+    <loc>https://mohamed-elsayed-pi.vercel.app/</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://mohamed-elsayed.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mohamed-elsayed-pi.vercel.app/"/>
   </url>
 
   <!-- صفحات الكتب -->
   <url>
-    <loc>https://mohamed-elsayed.vercel.app/#library</loc>
+    <loc>https://mohamed-elsayed-pi.vercel.app/#library</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -21,7 +21,7 @@
 
   <!-- عن الكاتب -->
   <url>
-    <loc>https://mohamed-elsayed.vercel.app/#about</loc>
+    <loc>https://mohamed-elsayed-pi.vercel.app/#about</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -29,7 +29,7 @@
 
   <!-- الجوائز -->
   <url>
-    <loc>https://mohamed-elsayed.vercel.app/#awards</loc>
+    <loc>https://mohamed-elsayed-pi.vercel.app/#awards</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
@@ -37,7 +37,7 @@
 
   <!-- تواصل -->
   <url>
-    <loc>https://mohamed-elsayed.vercel.app/#contact</loc>
+    <loc>https://mohamed-elsayed-pi.vercel.app/#contact</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>

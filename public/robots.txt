@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mohamed-elsayed.vercel.app/sitemap.xml
+Sitemap: https://mohamed-elsayed-pi.vercel.app/sitemap.xml
