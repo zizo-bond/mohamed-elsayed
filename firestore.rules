@@ -1,0 +1,95 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net (Rule 1: Default-deny catch-all)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitive / Global Helpers
+    function isSignedIn() { 
+      return request.auth != null; 
+    }
+    function isOwner(userId) { 
+      return isSignedIn() && request.auth.uid == userId; 
+    }
+    function isValidId(id) { 
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); 
+    }
+
+    // Validation Blueprint for Books
+    function isValidBook(data) {
+      return data.keys().hasAll(['title', 'type', 'price', 'description', 'image'])
+        && data.keys().size() <= 6
+        && data.title is string && data.title.size() <= 200
+        && data.type is string && data.type.size() <= 100
+        && data.price is number
+        && data.description is string && data.description.size() <= 1000
+        && data.image is string && data.image.size() <= 500
+        && (!data.keys().hasAll(['year']) || (data.year is string && data.year.size() <= 4));
+    }
+
+    // Validation Blueprint for User profiles / carts
+    function isValidUser(data) {
+      return data.keys().hasAll(['cart', 'email'])
+        && data.keys().size() <= 5
+        && data.email is string && data.email.size() <= 100
+        && data.cart is list;
+    }
+
+    // Validation Blueprint for Contacts messages
+    function isValidContact(data) {
+      return data.keys().hasAll(['name', 'email', 'message', 'timestamp'])
+        && data.keys().size() <= 4
+        && data.name is string && data.name.size() <= 100
+        && data.email is string && data.email.size() <= 100
+        && data.message is string && data.message.size() <= 2000;
+    }
+
+    // Validation Blueprint for Orders
+    function isValidOrder(data) {
+      return data.keys().hasAll(['orderNumber', 'customerEmail', 'items', 'totalAmount', 'paymentStatus', 'walletNumber', 'createdAt'])
+        && data.orderNumber is string && data.orderNumber.size() <= 50
+        && data.customerEmail is string && data.customerEmail.size() <= 100
+        && data.items is list
+        && data.totalAmount is number
+        && data.paymentStatus is string && data.paymentStatus in ['pending_payment', 'payment_sent', 'confirmed', 'cancelled']
+        && data.walletNumber is string;
+    }
+
+    // Books Collection Rules
+    match /books/{bookId} {
+      allow read: if true;
+      allow create, update: if isValidBook(request.resource.data);
+      allow delete: if false;
+    }
+
+    // Users (Carts & Profiles) Collection Rules
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidUser(request.resource.data);
+      allow delete: if false;
+    }
+
+    // Contacts (Direct Messaging) Collection Rules
+    match /contacts/{contactId} {
+      allow create: if isValidContact(request.resource.data);
+      allow read, update, delete: if false;
+    }
+
+    // Orders Collection Rules
+    match /orders/{orderId} {
+      // Anyone can create an order (guests too), authenticated users can read their own
+      allow create: if isValidOrder(request.resource.data);
+      // Authenticated users can read their own orders
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      // Allow updating payment status only
+      allow update: if isSignedIn() 
+        && resource.data.userId == request.auth.uid
+        && request.resource.data.paymentStatus in ['payment_sent', 'cancelled']
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['paymentStatus']);
+      allow delete: if false;
+    }
+  }
+}
