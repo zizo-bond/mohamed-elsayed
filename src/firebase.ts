@@ -1,10 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { 
-  getFirestore, 
-  collection, 
-  getDocs, 
-  writeBatch, 
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  writeBatch,
   doc,
   updateDoc,
   query,
@@ -91,7 +91,7 @@ export async function seedBooksIfEmpty() {
       handleFirestoreError(error, OperationType.GET, "books");
       return;
     }
-    
+
     // Check if "حبيس الزمن" already exists in the snapshot, if not, add it
     const hasHabis = snapshot.docs.some(doc => doc.data().title === "حبيس الزمن");
     if (!snapshot.empty && !hasHabis) {
@@ -102,7 +102,7 @@ export async function seedBooksIfEmpty() {
           year: "2022",
           price: 100,
           description: "قصة قصيرة فلسفية حائزة على جائزة iRead لأفضل قصة قصيرة، تأخذ القارئ في رحلة زمنية مثيرة تستكشف أبعاد الذاكرة والكينونة الإنسانية.",
-          image: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&q=80&w=400"
+          image: "https://j.top4top.io/p_3834lfb1o1.png"
         });
         console.log("Firestore successfully migrated: added 'حبيس الزمن'");
       } catch (error) {
@@ -171,10 +171,10 @@ export async function seedBooksIfEmpty() {
           year: "2022",
           price: 100,
           description: "قصة قصيرة فلسفية حائزة على جائزة iRead لأفضل قصة قصيرة، تأخذ القارئ في رحلة زمنية مثيرة تستكشف أبعاد الذاكرة والكينونة الإنسانية.",
-          image: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&q=80&w=400"
+          image: "https://j.top4top.io/p_3834lfb1o1.png"
         }
       ];
- 
+
       const batch = writeBatch(db);
       initialBooks.forEach((bookData) => {
         const newDocRef = doc(collection(db, "books"));
@@ -199,7 +199,7 @@ export async function migrateBookTitles() {
     const booksCol = collection(db, "books");
     const q = query(booksCol, where("title", "==", "نصف كائن"));
     const snapshot = await getDocs(q);
-    
+
     if (snapshot.empty) {
       console.log("Migration: No book found with old title, skipping.");
       return;
