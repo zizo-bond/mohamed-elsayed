@@ -852,12 +852,20 @@ export default function App() {
                 </button>
               </div>
             ) : (
-              <button
-                onClick={() => { setAuthMode("login"); setShowAuthModal(true); }}
-                className="bg-gold text-dark-main text-xs font-bold px-4 sm:px-5 py-2 rounded shadow-lg shadow-gold/10 hover:bg-[#B49027] transition-all cursor-pointer"
-              >
-                دخول
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => { setAuthMode("login"); setShowAuthModal(true); }}
+                  className="hidden sm:block text-xs font-bold text-gold hover:text-white transition-all cursor-pointer px-2"
+                >
+                  دخول
+                </button>
+                <button
+                  onClick={() => { setAuthMode("signup"); setShowAuthModal(true); }}
+                  className="bg-gold text-dark-main text-xs font-bold px-4 sm:px-5 py-2 rounded shadow-lg shadow-gold/10 hover:bg-[#B49027] transition-all cursor-pointer"
+                >
+                  إنشاء حساب
+                </button>
+              </div>
             )}
 
             {/* Mobile Menu Button */}
@@ -934,12 +942,20 @@ export default function App() {
                     </button>
                   </div>
                 ) : (
-                  <button
-                    onClick={() => { setAuthMode("login"); setShowAuthModal(true); setMobileMenuOpen(false); }}
-                    className="w-full bg-gold text-dark-main text-xs font-bold py-2.5 rounded-lg cursor-pointer"
-                  >
-                    تسجيل الدخول
-                  </button>
+                  <div className="space-y-2">
+                    <button
+                      onClick={() => { setAuthMode("login"); setShowAuthModal(true); setMobileMenuOpen(false); }}
+                      className="w-full border border-gold text-gold text-xs font-bold py-2.5 rounded-lg cursor-pointer hover:bg-gold/5"
+                    >
+                      تسجيل الدخول
+                    </button>
+                    <button
+                      onClick={() => { setAuthMode("signup"); setShowAuthModal(true); setMobileMenuOpen(false); }}
+                      className="w-full bg-gold text-dark-main text-xs font-bold py-2.5 rounded-lg cursor-pointer"
+                    >
+                      إنشاء حساب
+                    </button>
+                  </div>
                 )}
               </div>
             </motion.div>
