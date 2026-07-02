@@ -57,7 +57,7 @@ import {
   Eye
 } from "lucide-react";
 
-import { auth, db, seedBooksIfEmpty, migrateBookTitles, handleFirestoreError, OperationType } from "./firebase";
+import { auth, db, seedBooksIfEmpty, migrateBookTitles, migrateBookDescriptions, handleFirestoreError, OperationType } from "./firebase";
 import { Book, CartItem } from "./types";
 import { Routes, Route, Link } from "react-router-dom";
 import BookDetails from "./pages/BookDetails";
@@ -195,6 +195,7 @@ export default function App() {
 
       // 1.5 Run one-time migrations
       await migrateBookTitles();
+      await migrateBookDescriptions();
 
       // 2. Fetch books from Firestore
       try {
